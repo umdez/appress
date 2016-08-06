@@ -61,7 +61,7 @@ Servidor.prototype.redirecionar = function() {
   });
 };
 
-Servidor.prototype.carregar = function() {
+Servidor.prototype.escutar = function() {
 
   var esteObjeto = this;
 

@@ -19,7 +19,7 @@ var CORS = function(configuracao, aplicativo) {
    * permitidas no nosso serviço CORS. Lembre-se que iremos oferecer dois tipos
    * de conexões (http e https).
    */
-  this.listaDasOrigensPermitidas = confDoCors.origem;
+  this.listaDasOrigensPermitidas = this.confDoCors.origem;
 
   /* @Propriedade {Objeto} [aplic] O aplicativo express. */
   this.aplic = aplicativo;

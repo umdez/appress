@@ -52,12 +52,9 @@ Apress.prototype.carregarAsRotas(listaDeRotas) {
 };
 
 Apress.prototype.carregarAsEscutas(credenciais) {
-  
-  /* @Propriedade {Objeto} [minhasCredenciais] Contêm chave e certificado. */
-  this.minhasCredenciais = credenciais;
 
   /* @Propriedade {Objeto} [servidor] Nosso servidor express. */
-  this.servidor = new Servidor(this.aplic, this.confDoServidor, this.minhasCredenciais);
+  this.servidor = new Servidor(this.aplic, this.confDoServidor, credenciais);
 };
 
 module.exports = Apress;
