@@ -1,0 +1,38 @@
+{
+  "name": "appress",
+  "description": "Oferece um arcabouço para um determinado serviço em ExpressJs.",
+  "keywords": "express aplicativo rotas http https certificados cors",
+  "version": "0.0.1",
+  "author": "Léo Felippe <leofelippedias@hotmail.com.br>",
+  "main": "./biblioteca/iniciar.js",
+  "dependencies": {
+    "lodash": "^4.0.0"
+  },
+  "devDependencies": {
+    
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "path": "git@github.com:umdez/appress.git"
+    }
+  ],
+  "homepage": "https://github.com/umdez/appress#readme",
+  "bugs": "https://github.com/umdez/appress/issues",
+  "maintainers": [
+    {
+      "name": "umdez",
+      "email": "leofelippedias@hotmail.com.br",
+      "url": "https://github.com/umdez"
+    }
+  ],
+  "contributors": [
+    "https://github.com/orgs/devowly/people"
+  ],
+  "license": "UNLICENSED",
+  "private": true,
+  "engines": {
+    "node": ">=0.4.0"
+  },
+  "bin": "./biblioteca/iniciar.js"
+}
