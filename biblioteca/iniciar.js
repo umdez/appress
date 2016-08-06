@@ -12,7 +12,7 @@ var CORS = require('./cors');
 var Rotas = require('./rotas');
 var Servidor = require('./servidor');
 
-var Appress = function() {};
+exports.Appress = function() {};
 
 Appress.prototype.iniciar = function(configuracao, aplicativo, registrador) {
 
@@ -57,4 +57,3 @@ Appress.prototype.carregarAsEscutas = function(credenciais) {
   this.servidor = new Servidor(this.aplic, this.confDoServidor, credenciais);
 };
 
-module.exports = Appress;
