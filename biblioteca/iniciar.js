@@ -33,7 +33,7 @@ Apress.prototype.iniciar = function(configuracao, aplicativo, registrador) {
   //this.registrador = registrador;
 };
 
-Apress.prototype.carregarCors() {
+Apress.prototype.carregarCors = function() {
   
   /* @Propriedade {Objeto} [cors] Nosso serviço CORS. */
   this.cors = new CORS(this.confDoServidor, this.aplic);
@@ -42,7 +42,7 @@ Apress.prototype.carregarCors() {
   this.cors.carregar();
 };
 
-Apress.prototype.carregarAsRotas(listaDeRotas) {
+Apress.prototype.carregarAsRotas = function(listaDeRotas) {
   
   /* @Propriedade {Objeto} [rotas] Nosso serviço de roteamento. */
   this.rotas = new Rotas(listaDeRotas, this.aplic);
@@ -51,7 +51,7 @@ Apress.prototype.carregarAsRotas(listaDeRotas) {
   this.rotas.carregar();
 };
 
-Apress.prototype.carregarAsEscutas(credenciais) {
+Apress.prototype.carregarAsEscutas = function(credenciais) {
 
   /* @Propriedade {Objeto} [servidor] Nosso servidor express. */
   this.servidor = new Servidor(this.aplic, this.confDoServidor, credenciais);
