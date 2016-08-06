@@ -14,7 +14,7 @@ var Servidor = require('./servidor');
 
 var Appress = function() {};
 
-Apress.prototype.iniciar = function(configuracao, aplicativo, registrador) {
+Appress.prototype.iniciar = function(configuracao, aplicativo, registrador) {
 
   if (!configuracao) {
     throw new Error('É necessário informar a configuração do servidor.');
@@ -33,7 +33,7 @@ Apress.prototype.iniciar = function(configuracao, aplicativo, registrador) {
   //this.registrador = registrador;
 };
 
-Apress.prototype.carregarCors = function() {
+Appress.prototype.carregarCors = function() {
   
   /* @Propriedade {Objeto} [cors] Nosso serviço CORS. */
   this.cors = new CORS(this.confDoServidor, this.aplic);
@@ -42,7 +42,7 @@ Apress.prototype.carregarCors = function() {
   this.cors.carregar();
 };
 
-Apress.prototype.carregarAsRotas = function(listaDeRotas) {
+Appress.prototype.carregarAsRotas = function(listaDeRotas) {
   
   /* @Propriedade {Objeto} [rotas] Nosso serviço de roteamento. */
   this.rotas = new Rotas(listaDeRotas, this.aplic);
@@ -51,10 +51,10 @@ Apress.prototype.carregarAsRotas = function(listaDeRotas) {
   this.rotas.carregar();
 };
 
-Apress.prototype.carregarAsEscutas = function(credenciais) {
+Appress.prototype.carregarAsEscutas = function(credenciais) {
 
   /* @Propriedade {Objeto} [servidor] Nosso servidor express. */
   this.servidor = new Servidor(this.aplic, this.confDoServidor, credenciais);
 };
 
-module.exports = Apress;
+module.exports = Appress;
