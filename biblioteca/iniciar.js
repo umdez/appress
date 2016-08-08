@@ -13,7 +13,7 @@ var Rotas = require('./rotas');
 var Servidor = require('./servidor');
 var registrador = require('./registrador')('appress');
 
-var Appress = function() {};
+function Appress() {};
 
 Appress.prototype.iniciar = function(configuracao, aplicativo) {
 
