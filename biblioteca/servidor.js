@@ -34,6 +34,8 @@ var Servidor = function(aplicativo, configuracao, credenciais, lista) {
    * pelo express. 
    */
   this.aListaDeRotas = lista;
+
+  this.carregar();
 };
 
 Servidor.prototype.carregar = function() {
