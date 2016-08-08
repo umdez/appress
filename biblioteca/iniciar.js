@@ -1,3 +1,5 @@
+'use strict';
+
 /*******************************************************************
  * Appress é de (C) propriedade da Devowly Sistemas 2015-2016      *
  *                 https://github.com/devowly                      *
@@ -12,17 +14,16 @@ var CORS = require('./cors');
 var Rotas = require('./rotas');
 var Servidor = require('./servidor');
 var registrador = require('./registrador')('appress');
+var utilitario = require('util');
 
-function Appress() {};
-
-Appress.prototype.iniciar = function(configuracao, aplicativo) {
+var Expressando = function(configuracao, aplicativo) {
 
   if (!configuracao) {
     throw new Error('É necessário informar a configuração do servidor.');
   } else if (!aplicativo) {
     throw new Error('É necessário informar um aplicativo.');
   }
-  
+
   /* @Propriedade {Objeto} [aplic] O aplicativo express. */
   this.aplic = aplicativo;
 
@@ -30,31 +31,14 @@ Appress.prototype.iniciar = function(configuracao, aplicativo) {
    * Express. 
    */
   this.confDoServidor = configuracao.servidor;
-
 };
 
-Appress.prototype.carregarCors = function() {
-  
-  /* @Propriedade {Objeto} [cors] Nosso serviço CORS. */
-  this.cors = new CORS(this.confDoServidor, this.aplic);
+utilitario.inherits(Expressando, CORS);
+utilitario.inherits(Expressando, Rotas);
+utilitario.inherits(Expressando, Servidor);
 
-  // Carregamos o serviço CORS.
-  this.cors.carregar();
+Expressando.prototype.iniciar = function(ok) {
+  console.log(ok);
 };
 
-Appress.prototype.carregarAsRotas = function(listaDeRotas) {
-  
-  /* @Propriedade {Objeto} [rotas] Nosso serviço de roteamento. */
-  this.rotas = new Rotas(listaDeRotas, this.aplic);
-
-  // Carregamos as nossas rotas.
-  this.rotas.carregar();
-};
-
-Appress.prototype.carregarAsEscutas = function(credenciais) {
-
-  /* @Propriedade {Objeto} [servidor] Nosso servidor express. */
-  this.servidor = new Servidor(this.aplic, this.confDoServidor, credenciais);
-};
-
-module.exports = Appress;
+module.exports = Expressando;
