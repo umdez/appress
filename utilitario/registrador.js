@@ -19,7 +19,7 @@ var bunyan = require('bunyan');
 // Usa as variaveis de ambiente LOGSTASH_HOST e LOGSTASH_PORT
 // para enviar os registros para logstash por meio de udp.
 var configuracao = {
-  name: 'app-appress',
+  name: 'app-expressando',
   streams: [{
     level: 'debug',
     stream: process.stdout

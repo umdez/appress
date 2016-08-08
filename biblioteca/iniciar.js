@@ -11,7 +11,6 @@
  */
 
 var Servidor = require('./Servidor');
-var utilitario = require('util');
 
 var Expressando = function(configuracao, aplicativo, credenciais, lista) {
 
