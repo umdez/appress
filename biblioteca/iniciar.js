@@ -23,7 +23,7 @@ var Expressando = function(configuracao, aplicativo, credenciais, lista) {
     throw new Error('É necessário informar as credenciais.');
   }
 
-  this.servidor = new Servidor(configuracao, aplicativo, credenciais, lista);
+  this.servidor = new Servidor(aplicativo, configuracao, credenciais, lista);
 };
 
 Expressando.prototype.carregar = function() {
