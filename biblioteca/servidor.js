@@ -17,6 +17,7 @@ var morgan = require('morgan');
 var registrador = require('../utilitario/registrador')('Expressando');
 var _ = require('lodash');
 var cors = require('cors');
+var Promessa = require('bluebird');
 
 var Servidor = function(aplicativo, configuracao, credenciais, lista) {
 
@@ -115,19 +116,37 @@ Servidor.prototype.carregarServicoCors = function() {
 Servidor.prototype.escutarPorConexoes = function(pronto) {
   var esteObjeto = this;
 
-  // Inicia o servidor HTTP e começa a esperar por conexões.
-  this.oAplicativo.servidor = http.createServer(this.oAplicativo);
-  this.oAplicativo.servidor.listen(this.oAplicativo.get('porta'), function () {
-    registrador.debug("Servidor HTTP express carregado e escutando na porta " + esteObjeto.oAplicativo.get('porta'));
-  });
-  
-  // Inicia o servidor HTTPS e começa a esperar por conexões.
-  this.oAplicativo.servidorSSL = https.createServer(this.asCredenciais, this.oAplicativo);
-  this.oAplicativo.servidorSSL.listen(this.oAplicativo.get('portaSSL'), function () {
-    registrador.debug("Servidor HTTPS express carregado e escutando na porta " + esteObjeto.oAplicativo.get('portaSSL'));
-  });
+  var iniciarEscutaHttp = function() {
+    return new Promessa(function (deliberar, recusar) {
+      // Inicia o servidor HTTP e começa a esperar por conexões.
+      esteObjeto.oAplicativo.servidor = http.createServer(esteObjeto.oAplicativo);
+      esteObjeto.oAplicativo.servidor.listen(esteObjeto.oAplicativo.get('porta'), function () {
+        registrador.debug("Servidor HTTP express carregado e escutando na porta " + esteObjeto.oAplicativo.get('porta'));
+        deliberar();
+      });
+    });
+  };
 
-  //pronto(args);
+  var iniciarEscutaHttps = function() {
+    return new Promessa(function (deliberar, recusar) {
+      // Inicia o servidor HTTPS e começa a esperar por conexões.
+      esteObjeto.oAplicativo.servidorSSL = https.createServer(esteObjeto.asCredenciais, esteObjeto.oAplicativo);
+      esteObjeto.oAplicativo.servidorSSL.listen(esteObjeto.oAplicativo.get('portaSSL'), function () {
+        registrador.debug("Servidor HTTPS express carregado e escutando na porta " + esteObjeto.oAplicativo.get('portaSSL'));
+        deliberar();
+      });
+    }) 
+  };
+
+  iniciarEscutaHttp()
+  .then(iniciarEscutaHttps)
+  .then(function () {
+    // parece que tudo ocorreu bem
+    pronto();
+  })
+  .catch(function (err) {
+    registrador.error(err);
+  });
 };
 
 module.exports = Servidor;
