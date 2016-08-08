@@ -1,5 +1,5 @@
 /*******************************************************************
- * appress é de (C) propriedade da Devowly Sistemas 2015-2016      *
+ * Appress é de (C) propriedade da Devowly Sistemas 2015-2016      *
  *                 https://github.com/devowly                      *
  *******************************************************************
  * 
@@ -27,7 +27,8 @@ var Servidor = function(aplicativo, configuracao, credenciais) {
   this.minhasCredenciais = credenciais;
 };
 
-Servidor.prototype.configurar = function() {
+Servidor.prototype.carregar = function() {
+  var esteObjeto = this;
 
   /* Utilizamos o bodyParser para receber requisições POST ou PUT. Lembre-se de
    * manter o limit do body em 200kb para nos precaver dos ataques de negação de
@@ -44,26 +45,8 @@ Servidor.prototype.configurar = function() {
   
   // Adicionamos isso para realizar o registro de requisições.
   this.aplic.use(morgan(this.confDoServidor.registro || 'combined')); 
-};
 
-Servidor.prototype.redirecionar = function() {
-  var esteObjeto = this;
-
-  // Aqui nós iremos obrigado que as conexões não seguras sejam redirecionadas.
-  // Para mais informações @veja http://stackoverflow.com/a/10715802
-  this.aplic.use(function(req, res, proximo) {
-    // Se a requisição não for segura.
-    if(!req.secure && esteObjeto.confDoServidor.exigirConSegura) {
-      // Aqui faremos redirecionar para uma conexão segura.
-      return res.redirect(['https://', req.get('Host'), req.url].join(''));
-    }
-    proximo();
-  });
-};
-
-Servidor.prototype.escutar = function() {
-
-  var esteObjeto = this;
+  this.redirecionarAsConexoes();
 
   // Inicia o servidor HTTP e começa a esperar por conexões.
   this.aplic.servidor = http.createServer(this.aplic);
@@ -75,6 +58,21 @@ Servidor.prototype.escutar = function() {
   this.aplic.servidorSSL = https.createServer(this.minhasCredenciais, this.aplic);
   this.aplic.servidorSSL.listen(this.aplic.get('portaSSL'), function () {
     //registrador.debug("Servidor HTTPS express carregado e escutando na porta " + esteObjeto.aplic.get('portaSSL'));
+  });
+};
+
+Servidor.prototype.redirecionarAsConexoes = function() {
+  var esteObjeto = this;
+
+  // Aqui nós iremos obrigado que as conexões não seguras sejam redirecionadas.
+  // Para mais informações @veja http://stackoverflow.com/a/10715802
+  this.aplic.use(function(req, res, proximo) {
+    // Se a requisição não for segura.
+    if(!req.secure && esteObjeto.confDoServidor.exigirConSegura) {
+      // Aqui faremos redirecionar para uma conexão segura.
+      return res.redirect(['https://', req.get('Host'), req.url].join(''));
+    }
+    proximo();
   });
 };
 

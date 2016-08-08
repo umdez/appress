@@ -1,5 +1,5 @@
 /*******************************************************************
- * appress é de (C) propriedade da Devowly Sistemas 2015-2016      *
+ * Appress é de (C) propriedade da Devowly Sistemas 2015-2016      *
  *                 https://github.com/devowly                      *
  *******************************************************************
  * 
@@ -11,10 +11,11 @@
 var CORS = require('./cors');
 var Rotas = require('./rotas');
 var Servidor = require('./servidor');
+var registrador = require('./registrador')('appress');
 
-exports.Appress = function() {};
+var Appress = function() {};
 
-Appress.prototype.iniciar = function(configuracao, aplicativo, registrador) {
+Appress.prototype.iniciar = function(configuracao, aplicativo) {
 
   if (!configuracao) {
     throw new Error('É necessário informar a configuração do servidor.');
@@ -30,7 +31,6 @@ Appress.prototype.iniciar = function(configuracao, aplicativo, registrador) {
    */
   this.confDoServidor = configuracao.servidor;
 
-  //this.registrador = registrador;
 };
 
 Appress.prototype.carregarCors = function() {
@@ -57,3 +57,4 @@ Appress.prototype.carregarAsEscutas = function(credenciais) {
   this.servidor = new Servidor(this.aplic, this.confDoServidor, credenciais);
 };
 
+module.exports = Appress;
