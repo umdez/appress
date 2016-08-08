@@ -72,6 +72,7 @@ Servidor.prototype.redirecionarAsConexoes = function() {
 };
 
 Servidor.prototype.carregarAsRotas = function() {
+ var esteObjeto = this;
  
   _.forEach(this.aListaDeRotas, function(diretorio) {
     esteObjeto.oAplicativo.use(diretorio.rota, diretorio.caminho);  
