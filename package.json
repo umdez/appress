@@ -1,6 +1,6 @@
 {
-  "name": "appress",
-  "description": "Oferece um arcabouço para um determinado serviço em ExpressJs.",
+  "name": "expressando",
+  "description": "Oferece um arcabouço para um determinado serviço em Express.",
   "keywords": "express aplicativo rotas http https certificados cors",
   "version": "0.0.1",
   "author": "Léo Felippe <leofelippedias@hotmail.com.br>",
@@ -19,11 +19,11 @@
   "repositories": [
     {
       "type": "git",
-      "path": "git@github.com:umdez/appress.git"
+      "path": "git@github.com:umdez/expressando.git"
     }
   ],
-  "homepage": "https://github.com/umdez/appress#readme",
-  "bugs": "https://github.com/umdez/appress/issues",
+  "homepage": "https://github.com/umdez/expressando#readme",
+  "bugs": "https://github.com/umdez/expressando/issues",
   "maintainers": [
     {
       "name": "umdez",

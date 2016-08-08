@@ -79,6 +79,36 @@ Servidor.prototype.carregarAsRotas = function() {
   });
 };
 
+Servidor.prototype.carregarServicoCors = function() {
+  var esteObjeto = this;
+
+  /* @Propriedade {Objeto} [aConfDoCors] Nossa configuração do CORS. */
+  this.aConfDoCors = this.aConfDoServidor.cors;
+
+  /* @Propriedade {Matriz} [aListaDasOrigensPermitidas] Aqui temos as origens
+   * permitidas no nosso serviço CORS. Lembre-se que iremos oferecer dois tipos
+   * de conexões (http e https).
+   */
+  this.aListaDasOrigensPermitidas = this.aConfDoCors.origem; 
+
+  /* Iremos separar as preocupações do nosso projeto, para isso nós iremos
+   * oferecer os serviços deste servidor para a parte da visão. Assim iremos
+   * oferecer aceitação de conexões e requisições dos dominios de origem
+   * permitidos utilizando o módulo CORS.
+   * @Veja https://www.npmjs.com/package/cors
+   */
+  this.oAplicativo.use(cors({
+    origin: function(origem, cd) {  // Origem aceita por este servidor express.
+      var seOrigemPermitida = esteObjeto.aListaDasOrigensPermitidas.indexOf(origem) !== -1;
+      cd(null, seOrigemPermitida);
+    }  
+  , methods:  this.aConfDoCors.metodos // Métodos aceitos.
+  , allowedHeaders: this.aConfDoCors.cabecalhosAceitos
+  , exposedHeaders: this.aConfDoCors.cabecalhosExpostos  
+  , credentials: this.aConfDoCors.seUsarCredenciais
+  }));
+};
+
 Servidor.prototype.escutarPorConexoes = function(pronto) {
   var esteObjeto = this;
 

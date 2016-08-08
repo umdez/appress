@@ -28,12 +28,13 @@ var Expressando = function(configuracao, aplicativo, credenciais, lista) {
 
 Expressando.prototype.carregar = function() {
   this.servidor.carregar();
+  this.carregarServicoCors();
   this.servidor.redirecionarAsConexoes();
   this.servidor.carregarAsRotas();
 };
 
-Expressando.prototype.escutar = function() {
-  this.servidor.escutarPorConexoes();
+Expressando.prototype.escutar = function(cd) {
+  this.servidor.escutarPorConexoes(cd);
 };
 
 module.exports = Expressando;
