@@ -14,7 +14,7 @@ var CORS = require('./cors');
 //var Rotas = require('./rotas');
 //var Servidor = require('./servidor');
 //var registrador = require('./registrador')('appress');
-//var utilitario = require('util');
+var utilitario = require('util');
 
 var Expressando = function(configuracao, aplicativo) {
 
