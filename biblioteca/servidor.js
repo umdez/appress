@@ -16,6 +16,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');  
 var registrador = require('./registrador')('Expressando');
 var _ = require('lodash');
+var cors = require('cors');
 
 var Servidor = function(aplicativo, configuracao, credenciais, lista) {
 
