@@ -1,5 +1,7 @@
+'use strict';
+
 /*******************************************************************
- * Appress é de (C) propriedade da Devowly Sistemas 2015-2016      *
+ * Expressando é de (C) propriedade da Devowly Sistemas 2015-2016  *
  *                 https://github.com/devowly                      *
  *******************************************************************
  * 
@@ -10,22 +12,19 @@
 
 var cors = require('cors');
 
-var CORS = function(configuracao, aplicativo) {
+var CORS = function() {
 
   /* @Propriedade {Objeto} [confDoCors] Nossa configuração do CORS. */
-  this.confDoCors = configuracao.cors;
+  this.confDoCors = this.confDoServidor.cors;
 
   /* @Propriedade {Matriz} [listaDasOrigensPermitidas] Aqui temos as origens
    * permitidas no nosso serviço CORS. Lembre-se que iremos oferecer dois tipos
    * de conexões (http e https).
    */
   this.listaDasOrigensPermitidas = this.confDoCors.origem;
-
-  /* @Propriedade {Objeto} [aplic] O aplicativo express. */
-  this.aplic = aplicativo;
 };
 
-CORS.prototype.carregar = function() {
+CORS.prototype.carregarCors = function() {
 
   var esteObjeto = this;
 

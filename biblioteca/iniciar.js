@@ -1,7 +1,7 @@
 'use strict';
 
 /*******************************************************************
- * Appress é de (C) propriedade da Devowly Sistemas 2015-2016      *
+ * Expressando é de (C) propriedade da Devowly Sistemas 2015-2016  *
  *                 https://github.com/devowly                      *
  *******************************************************************
  * 
@@ -10,7 +10,7 @@
  * Versão atual 0.0.1-Beta
  */
 
-//var CORS = require('./cors');
+var CORS = require('./cors');
 //var Rotas = require('./rotas');
 //var Servidor = require('./servidor');
 //var registrador = require('./registrador')('appress');
@@ -33,12 +33,16 @@ var Expressando = function(configuracao, aplicativo) {
   this.confDoServidor = configuracao.servidor;
 };
 
-//utilitario.inherits(Expressando, CORS);
+utilitario.inherits(Expressando, CORS);
 //utilitario.inherits(Expressando, Rotas);
 //utilitario.inherits(Expressando, Servidor);
 
 Expressando.prototype.iniciar = function(ok) {
   console.log(ok);
+};
+
+Expressando.prototype.cors = function() {
+  this.carregarCors();
 };
 
 module.exports = Expressando;
