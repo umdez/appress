@@ -10,39 +10,24 @@
  * Versão atual 0.0.1-Beta
  */
 
-var CORS = require('./cors');
-//var Rotas = require('./rotas');
-//var Servidor = require('./servidor');
-//var registrador = require('./registrador')('appress');
+var Servidor = require('./Servidor');
 var utilitario = require('util');
 
-var Expressando = function(configuracao, aplicativo) {
+var Expressando = function(configuracao, aplicativo, credenciais, lista) {
 
   if (!configuracao) {
     throw new Error('É necessário informar a configuração do servidor.');
   } else if (!aplicativo) {
     throw new Error('É necessário informar um aplicativo.');
+  } else if (!credenciais) {
+    throw new Error('É necessário informar as credenciais.');
   }
 
-  /* @Propriedade {Objeto} [aplic] O aplicativo express. */
-  this.aplic = aplicativo;
-
-  /* @Propriedade {Objeto} [confDoServidor] Nossa configuração do servidor
-   * Express. 
-   */
-  this.confDoServidor = configuracao.servidor;
+  this.servidor = new Servidor(configuracao, aplicativo, credenciais, lista);
 };
 
-utilitario.inherits(Expressando, CORS);
-//utilitario.inherits(Expressando, Rotas);
-//utilitario.inherits(Expressando, Servidor);
-
-Expressando.prototype.iniciar = function(ok) {
-  console.log(ok);
-};
-
-Expressando.prototype.cors = function() {
-  this.carregarCors();
+Expressando.prototype.carregar = function() {
+  this.servidor.carregar();
 };
 
 module.exports = Expressando;

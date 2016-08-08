@@ -5,7 +5,7 @@
  *                 https://github.com/devowly                      *
  *******************************************************************
  * 
- * $Id servidor.js, criado em 06/08/2016 às 14:23 por Leo Felippe $
+ * $Id Servidor.js, criado em 06/08/2016 às 14:23 por Leo Felippe $
  *
  * Versão atual 0.0.1-Beta
  */
@@ -13,20 +13,26 @@
 var http = require('http');
 var https = require('https');
 var bodyParser = require('body-parser');
-var morgan = require('morgan');  // Oferece registro para as requisições http do express
+var morgan = require('morgan');  
+var registrador = require('./registrador')('Expressando');
 
-var Servidor = function(aplicativo, configuracao, credenciais) {
+var Servidor = function(aplicativo, configuracao, credenciais, lista) {
 
-  /* @Propriedade {Objeto} [aplic] O aplicativo express. */
-  this.aplic = aplicativo;
+  /* @Propriedade {Objeto} [oAplicativo] O aplicativo express. */
+  this.oAplicativo = aplicativo;
 
-  /* @Propriedade {Objeto} [confDoServidor] Nossa configuração do servidor
-   * Express. 
+  /* @Propriedade {Objeto} [aConfDoServidor] Nossa configuração do servidor
+   * Express.
    */
-  this.confDoServidor = configuracao;
+  this.aConfDoServidor = configuracao.servidor;
 
-  /* @Propriedade {Objeto} [minhasCredenciais] Contêm chave e certificado. */
-  this.minhasCredenciais = credenciais;
+  /* @Propriedade {Objeto} [asCredenciais] Contêm chave e certificado. */
+  this.asCredenciais = credenciais;
+
+  /* @Propriedade {Matriz} [aListaDeRotas] Contêm a lista das rotas utilizadas
+   * pelo express. 
+   */
+  this.aListaDeRotas = lista;
 };
 
 Servidor.prototype.carregar = function() {
@@ -36,29 +42,29 @@ Servidor.prototype.carregar = function() {
    * manter o limit do body em 200kb para nos precaver dos ataques de negação de
    * serviço.
    */
-  this.aplic.use(bodyParser.json({limit: this.confDoServidor.limite}));
-  this.aplic.use(bodyParser.urlencoded({limit: this.confDoServidor.limite, extended: false}));
+  this.oAplicativo.use(bodyParser.json({limit: this.aConfDoServidor.limite}));
+  this.oAplicativo.use(bodyParser.urlencoded({limit: this.aConfDoServidor.limite, extended: false}));
 
   // Porta ao qual iremos receber requisições http.  
-  this.aplic.set('porta', process.env.PORT || this.confDoServidor.porta);
+  this.oAplicativo.set('porta', process.env.PORT || this.aConfDoServidor.porta);
   
   // Porta ao qual iremos receber requisições https.  
-  this.aplic.set('portaSSL', process.env.SSLPORT || this.confDoServidor.portaSSL);
+  this.oAplicativo.set('portaSSL', process.env.SSLPORT || this.aConfDoServidor.portaSSL);
   
   // Adicionamos isso para realizar o registro de requisições.
-  this.aplic.use(morgan(this.confDoServidor.registro || 'combined')); 
+  this.oAplicativo.use(morgan(this.aConfDoServidor.registro || 'combined')); 
 
   this.redirecionarAsConexoes();
 
   // Inicia o servidor HTTP e começa a esperar por conexões.
-  this.aplic.servidor = http.createServer(this.aplic);
-  this.aplic.servidor.listen(this.aplic.get('porta'), function () {
+  this.oAplicativo.servidor = http.createServer(this.oAplicativo);
+  this.oAplicativo.servidor.listen(this.oAplicativo.get('porta'), function () {
     //registrador.debug("Servidor HTTP express carregado e escutando na porta " + esteObjeto.aplic.get('porta'));
   });
   
   // Inicia o servidor HTTPS e começa a esperar por conexões.
-  this.aplic.servidorSSL = https.createServer(this.minhasCredenciais, this.aplic);
-  this.aplic.servidorSSL.listen(this.aplic.get('portaSSL'), function () {
+  this.oAplicativo.servidorSSL = https.createServer(this.asCredenciais, this.oAplicativo);
+  this.oAplicativo.servidorSSL.listen(this.oAplicativo.get('portaSSL'), function () {
     //registrador.debug("Servidor HTTPS express carregado e escutando na porta " + esteObjeto.aplic.get('portaSSL'));
   });
 };
@@ -68,13 +74,20 @@ Servidor.prototype.redirecionarAsConexoes = function() {
 
   // Aqui nós iremos obrigado que as conexões não seguras sejam redirecionadas.
   // Para mais informações @veja http://stackoverflow.com/a/10715802
-  this.aplic.use(function(req, res, proximo) {
+  this.oAplicativo.use(function(req, res, proximo) {
     // Se a requisição não for segura.
-    if(!req.secure && esteObjeto.confDoServidor.exigirConSegura) {
+    if(!req.secure && esteObjeto.aConfDoServidor.exigirConSegura) {
       // Aqui faremos redirecionar para uma conexão segura.
       return res.redirect(['https://', req.get('Host'), req.url].join(''));
     }
     proximo();
+  });
+};
+
+Servidor.prototype.carregarAsRotas = function() {
+ 
+  _.forEach(this.aListaDeRotas, function(diretorio) {
+    esteObjeto.aplic.use(diretorio.rota, diretorio.caminho);  
   });
 };
 
