@@ -12,17 +12,19 @@
 
 var Servidor = require('./Servidor');
 
-var Expressando = function(configuracao, aplicativo, credenciais, lista) {
+var Expressando = function(opcoes, cd) {
 
-  if (!configuracao) {
-    throw new Error('É necessário informar a configuração do servidor.');
-  } else if (!aplicativo) {
-    throw new Error('É necessário informar um aplicativo.');
-  } else if (!credenciais) {
-    throw new Error('É necessário informar as credenciais.');
-  }
+  if (!opcoes) {
+    throw new Error('É necessário informar a opção de configuração.');
+  } 
+
+  var configuracao = opcoes.configuracao;
+  var aplicativo = opcoes.aplicativo;
+  var credenciais = opcoes.credenciais;
+  var lista = opcoes.lista;
 
   this.servidor = new Servidor(aplicativo, configuracao, credenciais, lista);
+  cd(this);
 };
 
 Expressando.prototype.carregar = function() {
