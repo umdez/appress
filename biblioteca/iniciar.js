@@ -10,11 +10,11 @@
  * Versão atual 0.0.1-Beta
  */
 
-var CORS = require('./cors');
-var Rotas = require('./rotas');
-var Servidor = require('./servidor');
-var registrador = require('./registrador')('appress');
-var utilitario = require('util');
+//var CORS = require('./cors');
+//var Rotas = require('./rotas');
+//var Servidor = require('./servidor');
+//var registrador = require('./registrador')('appress');
+//var utilitario = require('util');
 
 var Expressando = function(configuracao, aplicativo) {
 
@@ -33,9 +33,9 @@ var Expressando = function(configuracao, aplicativo) {
   this.confDoServidor = configuracao.servidor;
 };
 
-utilitario.inherits(Expressando, CORS);
-utilitario.inherits(Expressando, Rotas);
-utilitario.inherits(Expressando, Servidor);
+//utilitario.inherits(Expressando, CORS);
+//utilitario.inherits(Expressando, Rotas);
+//utilitario.inherits(Expressando, Servidor);
 
 Expressando.prototype.iniciar = function(ok) {
   console.log(ok);
