@@ -1,5 +1,7 @@
+'use strict';
+
 /*******************************************************************
- * Appress é de (C) propriedade da Devowly Sistemas 2015-2016      *
+ * Expressando é de (C) propriedade da Devowly Sistemas 2015-2016  *
  *                 https://github.com/devowly                      *
  *******************************************************************
  * 

@@ -39,10 +39,10 @@ CORS.prototype.carregarCors = function() {
       var seOrigemPermitida = esteObjeto.listaDasOrigensPermitidas.indexOf(origem) !== -1;
       cd(null, seOrigemPermitida);
     }  
-  , methods:  this.confDoCors.metodos // Métodos aceitos.
-  , allowedHeaders: this.confDoCors.cabecalhosAceitos
-  , exposedHeaders: this.confDoCors.cabecalhosExpostos  
-  , credentials: this.confDoCors.seUsarCredenciais
+  , methods:  esteObjeto.confDoCors.metodos // Métodos aceitos.
+  , allowedHeaders: esteObjeto.confDoCors.cabecalhosAceitos
+  , exposedHeaders: esteObjeto.confDoCors.cabecalhosExpostos  
+  , credentials: esteObjeto.confDoCors.seUsarCredenciais
   }));
 };
 
