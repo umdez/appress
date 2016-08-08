@@ -74,7 +74,7 @@ Servidor.prototype.redirecionarAsConexoes = function() {
 Servidor.prototype.carregarAsRotas = function() {
  
   _.forEach(this.aListaDeRotas, function(diretorio) {
-    esteObjeto.aplic.use(diretorio.rota, diretorio.caminho);  
+    esteObjeto.oAplicativo.use(diretorio.rota, diretorio.caminho);  
   });
 };
 
