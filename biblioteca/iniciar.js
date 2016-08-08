@@ -30,4 +30,8 @@ Expressando.prototype.carregar = function() {
   this.servidor.carregar();
 };
 
+Expressando.prototype.escutar = function() {
+  this.servidor.escutarPorConexoes();
+};
+
 module.exports = Expressando;

@@ -55,18 +55,6 @@ Servidor.prototype.carregar = function() {
   this.oAplicativo.use(morgan(this.aConfDoServidor.registro || 'combined')); 
 
   this.redirecionarAsConexoes();
-
-  // Inicia o servidor HTTP e começa a esperar por conexões.
-  this.oAplicativo.servidor = http.createServer(this.oAplicativo);
-  this.oAplicativo.servidor.listen(this.oAplicativo.get('porta'), function () {
-    //registrador.debug("Servidor HTTP express carregado e escutando na porta " + esteObjeto.aplic.get('porta'));
-  });
-  
-  // Inicia o servidor HTTPS e começa a esperar por conexões.
-  this.oAplicativo.servidorSSL = https.createServer(this.asCredenciais, this.oAplicativo);
-  this.oAplicativo.servidorSSL.listen(this.oAplicativo.get('portaSSL'), function () {
-    //registrador.debug("Servidor HTTPS express carregado e escutando na porta " + esteObjeto.aplic.get('portaSSL'));
-  });
 };
 
 Servidor.prototype.redirecionarAsConexoes = function() {
@@ -88,6 +76,22 @@ Servidor.prototype.carregarAsRotas = function() {
  
   _.forEach(this.aListaDeRotas, function(diretorio) {
     esteObjeto.aplic.use(diretorio.rota, diretorio.caminho);  
+  });
+};
+
+Servidor.prototype.escutarPorConexoes = function() {
+  var esteObjeto = this;
+
+  // Inicia o servidor HTTP e começa a esperar por conexões.
+  this.oAplicativo.servidor = http.createServer(this.oAplicativo);
+  this.oAplicativo.servidor.listen(this.oAplicativo.get('porta'), function () {
+    registrador.debug("Servidor HTTP express carregado e escutando na porta " + esteObjeto.aplic.get('porta'));
+  });
+  
+  // Inicia o servidor HTTPS e começa a esperar por conexões.
+  this.oAplicativo.servidorSSL = https.createServer(this.asCredenciais, this.oAplicativo);
+  this.oAplicativo.servidorSSL.listen(this.oAplicativo.get('portaSSL'), function () {
+    registrador.debug("Servidor HTTPS express carregado e escutando na porta " + esteObjeto.aplic.get('portaSSL'));
   });
 };
 
