@@ -28,6 +28,8 @@ var Expressando = function(configuracao, aplicativo, credenciais, lista) {
 
 Expressando.prototype.carregar = function() {
   this.servidor.carregar();
+  this.servidor.redirecionarAsConexoes();
+  this.servidor.carregarAsRotas();
 };
 
 Expressando.prototype.escutar = function() {

@@ -53,8 +53,6 @@ Servidor.prototype.carregar = function() {
   
   // Adicionamos isso para realizar o registro de requisições.
   this.oAplicativo.use(morgan(this.aConfDoServidor.registro || 'combined')); 
-
-  this.redirecionarAsConexoes();
 };
 
 Servidor.prototype.redirecionarAsConexoes = function() {
@@ -79,20 +77,22 @@ Servidor.prototype.carregarAsRotas = function() {
   });
 };
 
-Servidor.prototype.escutarPorConexoes = function() {
+Servidor.prototype.escutarPorConexoes = function(pronto) {
   var esteObjeto = this;
 
   // Inicia o servidor HTTP e começa a esperar por conexões.
   this.oAplicativo.servidor = http.createServer(this.oAplicativo);
   this.oAplicativo.servidor.listen(this.oAplicativo.get('porta'), function () {
-    registrador.debug("Servidor HTTP express carregado e escutando na porta " + esteObjeto.aplic.get('porta'));
+    registrador.debug("Servidor HTTP express carregado e escutando na porta " + esteObjeto.oAplicativo.get('porta'));
   });
   
   // Inicia o servidor HTTPS e começa a esperar por conexões.
   this.oAplicativo.servidorSSL = https.createServer(this.asCredenciais, this.oAplicativo);
   this.oAplicativo.servidorSSL.listen(this.oAplicativo.get('portaSSL'), function () {
-    registrador.debug("Servidor HTTPS express carregado e escutando na porta " + esteObjeto.aplic.get('portaSSL'));
+    registrador.debug("Servidor HTTPS express carregado e escutando na porta " + esteObjeto.oAplicativo.get('portaSSL'));
   });
+
+  //pronto(args);
 };
 
 module.exports = Servidor;
