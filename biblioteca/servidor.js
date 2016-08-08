@@ -14,7 +14,7 @@ var http = require('http');
 var https = require('https');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');  
-var registrador = require('./registrador')('Expressando');
+var registrador = require('../utilitario/registrador')('Expressando');
 var _ = require('lodash');
 var cors = require('cors');
 
