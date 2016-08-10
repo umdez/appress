@@ -1,2 +1,2 @@
 - [A configuração](https://github.com/umdez/expressando/blob/master/docs/aConfiguracao.md)
-- [Iniciando o expressando](https://github.com/umdez/expressando/blob/master/docs/aIniciacao.md)
+- [Como usar](https://github.com/umdez/expressando/blob/master/docs/aIniciacao.md)
