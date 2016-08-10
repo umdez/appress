@@ -19,5 +19,7 @@ var expressando = new Expressando({
 expressando.carregar();  
   
 // Iniciamos a escuta por conexões normais e seguras com o nosso serviço express.
-expressando.escutar();  
+expressando.escutar(function() {
+  // tudo pronto...
+});  
 ```
