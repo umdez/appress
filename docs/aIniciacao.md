@@ -1,4 +1,4 @@
-# Iniciando o expressando
+# Como usar
 
 O expressando poderá ser iniciado facilmente ao informar o arquivo de configuração, seguido do aplicativo express, as credenciais e uma 
 lista de rotas pré-carregadas.
