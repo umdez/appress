@@ -37,7 +37,7 @@ Servidor.prototype.carregar = function() {
   this.oAplicativo.use(bodyParser.json({limit: this.aConfDoServidor.limite}));
   this.oAplicativo.use(bodyParser.urlencoded({limit: this.aConfDoServidor.limite, extended: false}));
 
- // this.oAplicativo.use(this.express.compress());
+  this.oAplicativo.use(this.express.csrf());
 
   this.oAplicativo.set('porta', process.env.PORT || this.aConfDoServidor.porta);
   this.oAplicativo.set('portaSSL', process.env.SSLPORT || this.aConfDoServidor.portaSSL);
