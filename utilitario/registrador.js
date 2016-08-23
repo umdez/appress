@@ -10,9 +10,7 @@
  * Versão atual 0.0.1-Beta
  */
 
-/* Realiza o registro de mensagems de atividade do nosso servidor.
- * Cada um dos arquivos podem utiliza-lo.
- */
+/* Realiza o registro de mensagems de atividade */
 
 var bunyan = require('bunyan');
 
