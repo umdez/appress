@@ -33,25 +33,15 @@ var Servidor = function(opcoes) {
 Servidor.prototype.carregar = function() {
   var esteObjeto = this;
 
-
   this.oAplicativo.enable('trust proxy');
-
-  /* Utilizamos o bodyParser para receber requisições POST ou PUT. Lembre-se de
-   * manter o limit do body em 200kb para nos precaver dos ataques de negação de
-   * serviço.
-   */
   this.oAplicativo.use(bodyParser.json({limit: this.aConfDoServidor.limite}));
   this.oAplicativo.use(bodyParser.urlencoded({limit: this.aConfDoServidor.limite, extended: false}));
 
   this.oAplicativo.use(this.express.compress());
 
-  // Porta ao qual iremos receber requisições http.  
   this.oAplicativo.set('porta', process.env.PORT || this.aConfDoServidor.porta);
-  
-  // Porta ao qual iremos receber requisições https.  
   this.oAplicativo.set('portaSSL', process.env.SSLPORT || this.aConfDoServidor.portaSSL);
   
-  // Adicionamos isso para realizar o registro de requisições.
   this.oAplicativo.use(morgan(this.aConfDoServidor.registro || 'combined')); 
 };
 

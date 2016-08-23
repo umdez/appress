@@ -18,12 +18,7 @@ var Expressando = function(opcoes, cd) {
     throw new Error('É necessário informar a opção de configuração.');
   } 
 
-  var configuracao = opcoes.configuracao;
-  var aplicativo = opcoes.aplicativo;
-  var credenciais = opcoes.credenciais;
-  var lista = opcoes.lista;
-
-  this.servidor = new Servidor(aplicativo, configuracao, credenciais, lista);
+  this.servidor = new Servidor(opcoes);
   cd(this);
 };
 
