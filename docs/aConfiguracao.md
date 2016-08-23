@@ -3,7 +3,7 @@
 Nós teremos três blocos de configuração: Uma para a base do servidor, um para o serviço CORS e mais um para a configuração dos certificados
 do nosso serviço express.
 
-# O nosso servidor express.
+## O nosso servidor express.
 
 | Diretiva | Propriedade | Tipo | Descrição  |
 |---|---|---|---|
@@ -28,7 +28,7 @@ config.servidor = {
 };
 ```
 
-# O nosso serviço CORS.
+## O nosso serviço CORS.
 
 | Diretiva | Propriedade | Tipo | Descrição  |
 |---|---|---|---|
@@ -51,7 +51,7 @@ config.servidor.cors = {
 };
 ```
 
-# Os nossos certificados de segurança.
+## Os nossos certificados de segurança.
 
 | Diretiva | Propriedade | Tipo | Descrição  |
 |---|---|---|---|
