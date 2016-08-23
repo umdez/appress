@@ -19,25 +19,13 @@ var _ = require('lodash');
 var cors = require('cors');
 var Promessa = require('bluebird');
 
-var Servidor = function(aplicativo, express, configuracao, credenciais, lista) {
+var Servidor = function(opcoes) {
 
-  /* @Propriedade {Objeto} [oAplicativo] O aplicativo express. */
-  this.oAplicativo = aplicativo;
-
-  this.express = express;
-
-  /* @Propriedade {Objeto} [aConfDoServidor] Nossa configuração do servidor
-   * Express.
-   */
-  this.aConfDoServidor = configuracao.servidor;
-
-  /* @Propriedade {Objeto} [asCredenciais] Contêm chave e certificado. */
-  this.asCredenciais = credenciais;
-
-  /* @Propriedade {Matriz} [aListaDeRotas] Contêm a lista das rotas utilizadas
-   * pelo express. 
-   */
-  this.aListaDeRotas = lista;
+  this.oAplicativo = opcoes.aplicativo;
+  this.express = opcoes.express;
+  this.aConfDoServidor = opcoes.configuracao.servidor;
+  this.asCredenciais = opcoes.credenciais;
+  this.aListaDeRotas = opcoes.lista;
 
   this.carregar();
 };
