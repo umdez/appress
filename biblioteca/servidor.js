@@ -18,7 +18,7 @@ var registrador = require('../utilitario/registrador')('Expressando');
 var _ = require('lodash');
 var cors = require('cors');
 var Promessa = require('bluebird');
-var sessao = require('express-session');
+//var sessao = require('express-session');
 
 var Servidor = function(opcoes) {
 
