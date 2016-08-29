@@ -18,6 +18,7 @@ var registrador = require('../utilitario/registrador')('Expressando');
 var _ = require('lodash');
 var cors = require('cors');
 var Promessa = require('bluebird');
+var sessao = require('express-session');
 
 var Servidor = function(opcoes) {
 
@@ -38,6 +39,8 @@ Servidor.prototype.carregar = function() {
   this.oAplicativo.use(bodyParser.urlencoded({limit: this.aConfDoServidor.limite, extended: false}));
 
   //this.oAplicativo.use(this.express.csrf());
+
+  this.oAplicativo.use(sessao({ secret: "superSegredo", cookie: { httpOnly: true, secure: true }}));
 
   this.oAplicativo.set('porta', process.env.PORT || this.aConfDoServidor.porta);
   this.oAplicativo.set('portaSSL', process.env.SSLPORT || this.aConfDoServidor.portaSSL);
